@@ -2,11 +2,16 @@ require 'sinatra'
 require 'rack/padlock'
 class HiApp < Sinatra::Base
   
-  enable :logging
-  use Rack::Padlock
+  configure :test, :development do
+    use Rack::Padlock
+  end
+  
+  get '/insecure' do
+    "<img src='http://www.google.com/images/srpr/logo3w.png'/><p>Hello, World!</p>"
+  end
 
-  get '/hi' do
-    "<img src='http://www.sinatrarb.com/images/logo.png'/><p>Hello, World!</p>"
+  get '/secure' do
+    "<img src='https://www.google.com/images/srpr/logo3w.png'/><p>Hello, World!</p>"
   end
   
   run! if app_file == $0

@@ -14,8 +14,13 @@ class HiTest < Test::Unit::TestCase
     Capybara.use_default_driver
   end
   
-  def test_hi
-    visit('/hi')
+  def test_secure
+    visit('/secure')
+    page.has_content?('Hello World!')
+  end
+  
+  def test_insecure
+    visit('/insecure')
     page.has_content?('Hello World!')
   end
   
